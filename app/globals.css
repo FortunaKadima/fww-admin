@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ✅ Official FWW typeface — Albert Sans */
+@import url('https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* ✅ Official FWW brand colors — sourced from exported-styles.json (Drive) */
+  --fww-green:       #007c33; /* Green 600 — hero green, primary CTA */
+  --fww-green-dark:  #015d25; /* Green 700 — hover, active states */
+  --fww-green-mid:   #008236; /* Green 500 */
+  --fww-green-light: #d0ffd9; /* Green 50 — tints, backgrounds */
+  --fww-green-cta:   #00b64f; /* Green 400 — progress bars, accents */
+  /* Neutrals */
+  --fww-cream:       #fbf9f6;
+  --fww-sage-50:     #f4f6f0;
+  --fww-sage-100:    #e6eadc;
+  --fww-sage-200:    #d4dcc4;
+  --fww-sage-400:    #9aa489;
+  --fww-sage-600:    #636858;
+  --fww-sage-800:    #4a5041;
+  --fww-ink:         #1a1f15;
+}
+
+body {
+  @apply bg-[#fbf9f6] text-[#1a1f15] antialiased;
+  font-family: "Albert Sans", system-ui, sans-serif;
+}
