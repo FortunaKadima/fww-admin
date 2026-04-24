@@ -27,7 +27,7 @@ export default function ModuleCompletionChart({ avgCompletion, totalCompleted }:
           <YAxis dataKey="name" type="category" stroke="#636858" style={{ fontSize: "12px" }} width={120} />
           <Tooltip
             contentStyle={{ backgroundColor: "#fbf9f6", border: "1px solid #e6eadc", borderRadius: "8px" }}
-            formatter={(value) => `${Math.round(value)}%`}
+            formatter={(value) => `${Math.round(Number(value) || 0)}%`}
           />
           <Bar dataKey="value" fill="#007c33" radius={[0, 8, 8, 0]} />
         </BarChart>
