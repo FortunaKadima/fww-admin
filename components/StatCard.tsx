@@ -13,11 +13,11 @@ export default function StatCard({ label, value, subtext, onClick }: StatCardPro
         onClick ? "cursor-pointer hover:border-[#d4dcc4]" : ""
       }`}
     >
-      <p className="text-[10px] font-bold uppercase tracking-[.07em] text-[#9aa489] mb-[7px]">
+      <p className="text-[10px] font-extrabold uppercase tracking-[.07em] text-[#015d25] mb-[7px]">
         {label}
       </p>
       <p className="text-xl font-bold tracking-[-.02em] text-[#1a1f15]">{value}</p>
-      {subtext && <p className="text-[11px] text-[#9aa489] mt-[3px]">{subtext}</p>}
+      {subtext && <p className="text-[11px] text-[#636858] mt-[3px]">{subtext}</p>}
     </div>
   );
 }

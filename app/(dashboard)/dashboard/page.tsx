@@ -1,12 +1,16 @@
 import { getDashboardStats } from "@/lib/queries";
 import StatCard from "@/components/StatCard";
 import Topbar from "@/components/Topbar";
+import ActivationChart from "@/components/ActivationChart";
+import EngagementChart from "@/components/EngagementChart";
+import ModuleCompletionChart from "@/components/ModuleCompletionChart";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
 export default async function DashboardPage() {
   const stats = await getDashboardStats();
+  const pendingAthletes = stats.total_enrolled - Math.round((stats.activation_rate / 100) * stats.total_enrolled);
 
   return (
     <>
@@ -14,7 +18,7 @@ export default async function DashboardPage() {
 
       <div className="max-w-[1100px]">
         {/* Enrollment & Activation */}
-        <div className="text-[11px] font-bold uppercase tracking-[.07em] text-[#9aa489] mb-2.5 mt-5.5">
+        <div className="text-[11px] font-bold uppercase tracking-[.07em] text-[#015d25] mb-2.5 mt-5.5">
           Enrollment & Activation
         </div>
         <div className="grid grid-cols-4 gap-3 mb-1">
@@ -32,8 +36,17 @@ export default async function DashboardPage() {
           <StatCard label="Total Completed Modules" value={stats.total_completed_modules} />
         </div>
 
+        {/* Charts Row 1 */}
+        <div className="grid grid-cols-2 gap-4 mb-6 mt-6">
+          <ActivationChart
+            activated={Math.round((stats.activation_rate / 100) * stats.total_enrolled)}
+            pending={pendingAthletes}
+          />
+          <EngagementChart weeklyActive={stats.weekly_active_users} monthlyActive={stats.monthly_active_users} />
+        </div>
+
         {/* Engagement */}
-        <div className="text-[11px] font-bold uppercase tracking-[.07em] text-[#9aa489] mb-2.5 mt-5.5">
+        <div className="text-[11px] font-bold uppercase tracking-[.07em] text-[#015d25] mb-2.5 mt-5.5">
           Engagement
         </div>
         <div className="grid grid-cols-4 gap-3 mb-1">
@@ -59,8 +72,16 @@ export default async function DashboardPage() {
           />
         </div>
 
+        {/* Charts Row 2 */}
+        <div className="mb-6 mt-6">
+          <ModuleCompletionChart
+            avgCompletion={stats.avg_module_completion}
+            totalCompleted={stats.total_completed_modules}
+          />
+        </div>
+
         {/* Financial */}
-        <div className="text-[11px] font-bold uppercase tracking-[.07em] text-[#9aa489] mb-2.5 mt-5.5">
+        <div className="text-[11px] font-bold uppercase tracking-[.07em] text-[#015d25] mb-2.5 mt-5.5">
           Financial
         </div>
         <div className="grid grid-cols-4 gap-3 mb-1">
