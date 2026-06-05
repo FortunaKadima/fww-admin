@@ -1,7 +1,6 @@
 import { getAdmins } from "@/lib/queries";
 import InviteAdmin from "@/components/InviteAdmin";
 import RemoveAdmin from "@/components/RemoveAdmin";
-import Topbar from "@/components/Topbar";
 
 export const dynamic = "force-dynamic";
 
@@ -13,12 +12,20 @@ export default async function SettingsPage() {
 
   return (
     <>
-      <Topbar title="Settings" subtitle="Manage admin access for your school" />
+      <div className="max-w-[1100px]">
+        {/* Settings Header */}
+        <div className="mt-16 mb-6">
+          <div className="flex justify-between items-end mb-4">
+            <h1 className="text-[35px] font-black text-[#003219]" style={{ lineHeight: '100%', letterSpacing: '-2px' }}>Settings</h1>
+            <p className="text-[15px] font-normal italic text-[#003219]" style={{ lineHeight: '130%', letterSpacing: '0' }}>Manage admin access for your school</p>
+          </div>
+          {/* Divider */}
+          <div style={{ width: '100%', height: '0px', border: '0.5px solid #55695F', opacity: 1 }}></div>
+        </div>
 
-      <div className="max-w-[840px]">
-        <div className="grid grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           {/* Admin list */}
-          <div className="bg-white border border-[#e6eadc] rounded-[16px] overflow-hidden">
+          <div className="bg-white border border-[#e6eadc] rounded-none overflow-hidden">
             <div className="px-5 py-4 border-b border-[#e6eadc] flex items-center justify-between">
               <h2 className="font-bold text-sm text-[#1a1f15]">Admin Users</h2>
               <span className="inline-block px-2.25 py-1 text-[11px] font-semibold bg-[#f4f6f0] border border-[#e6eadc] text-[#636858] rounded-full">
@@ -50,7 +57,7 @@ export default async function SettingsPage() {
           </div>
 
           {/* Invite form */}
-          <div className="bg-white border border-[#e6eadc] rounded-[16px] overflow-hidden p-5">
+          <div className="bg-white border border-[#e6eadc] rounded-none overflow-hidden p-5">
             <h2 className="font-bold text-sm text-[#1a1f15] mb-1">Invite Admin</h2>
             {canInvite ? (
               <>

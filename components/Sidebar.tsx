@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { BarChart3, Users, Settings, LogOut } from "lucide-react";
+import { BarChart3, Users, Settings, User } from "lucide-react";
 
 const navItems = [
   { href: "/dashboard", label: "Dashboard", icon: BarChart3 },
@@ -14,43 +15,44 @@ export default function Sidebar({ adminEmail }: { adminEmail: string }) {
   const pathname = usePathname();
 
   return (
-    <aside className="w-[220px] min-w-[220px] bg-white border-r border-[#e6eadc] flex flex-col sticky top-0 h-screen overflow-hidden">
+    <aside className="w-[250px] min-w-[250px] bg-[#003219] border-r border-[#003219] flex flex-col sticky top-0 h-screen overflow-hidden">
       {/* Top */}
       <div className="p-5 pt-[20px]">
-        <div className="flex items-center gap-2.5 p-3 bg-[#f4f6f0] rounded-[12px] mb-6">
-          <div
-            className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-xs font-bold"
-            style={{ backgroundColor: "var(--fww-green)" }}
-          >
-            FW
-          </div>
-          <div>
-            <div className="text-xs font-semibold text-[#1a1f15]">Your School</div>
-            <div className="text-[10px] text-[#636858] mt-0.5">Admin</div>
-          </div>
+        <div className="mb-10 flex flex-col" style={{ width: '200px', height: '103px', opacity: 1, paddingTop: '10px' }}>
+          <div className="text-white leading-none italic uppercase" style={{ fontSize: '40px', fontWeight: 900 }}>Final</div>
+          <div className="text-white leading-none italic uppercase" style={{ fontSize: '40px', fontWeight: 900, paddingLeft: '20px' }}>Whistle</div>
+          <div className="text-white leading-none italic uppercase" style={{ fontSize: '40px', fontWeight: 900 }}>Wealth</div>
         </div>
 
         {/* Nav */}
-        <div>
-          <div className="text-[10px] font-bold uppercase tracking-[0.08em] text-[#9aa489] px-4 mb-1">
-            Menu
-          </div>
+        <div className="mt-[90px] border-t border-[#004d2c] pt-6 pb-6 border-b border-[#004d2c]">
           <nav className="flex flex-col gap-0.5 px-2">
-            {navItems.map(({ href, label, icon: Icon }) => {
+            {navItems.map(({ href, label, icon: Icon }, index) => {
               const active = pathname.startsWith(href);
               return (
-                <Link
-                  key={href}
-                  href={href}
-                  className={`flex items-center gap-2.5 px-3 py-2 rounded-[10px] text-sm font-medium transition ${
-                    active
-                      ? "bg-[#d0ffd9] text-[#015d25] font-semibold"
-                      : "text-[#636858] hover:bg-[#f4f6f0] hover:text-[#1a1f15]"
-                  }`}
-                >
-                  <Icon size={16} className={active ? "opacity-100" : "opacity-70"} />
-                  {label}
-                </Link>
+                <div key={href}>
+                  <Link
+                    href={href}
+                    className={`flex items-center gap-2.5 px-3 py-2 rounded-[10px] font-medium transition ${
+                      active
+                        ? "text-[#7FFF9E] font-semibold"
+                        : "text-[#a8d5ba] hover:text-white"
+                    }`}
+                    style={{ fontSize: '15px' }}
+                  >
+                    {label === "Dashboard" ? (
+                      <Image src="/icon-dashboard.png" alt="Dashboard" width={16} height={16} style={{ opacity: active ? 1 : 0.7 }} />
+                    ) : label === "Athletes" ? (
+                      <Image src="/icon-athletes.png" alt="Athletes" width={16} height={16} style={{ opacity: active ? 1 : 0.7 }} />
+                    ) : label === "Settings" ? (
+                      <Image src="/icon-settings.png" alt="Settings" width={16} height={16} style={{ opacity: active ? 1 : 0.7 }} />
+                    ) : (
+                      <Icon size={16} className={active ? "opacity-100" : "opacity-70"} />
+                    )}
+                    {label}
+                  </Link>
+                  {(index === 0 || index === 1) && <div className="my-2 border-t border-[#004d2c]"></div>}
+                </div>
               );
             })}
           </nav>
@@ -58,15 +60,14 @@ export default function Sidebar({ adminEmail }: { adminEmail: string }) {
       </div>
 
       {/* Bottom */}
-      <div className="mt-auto p-4 border-t border-[#e6eadc]">
-        <div className="flex items-center gap-2.5 p-2 rounded-[10px] cursor-pointer hover:bg-[#f4f6f0] transition">
-          <div className="w-[30px] h-[30px] rounded-lg bg-[#e6eadc] flex items-center justify-center text-xs font-bold text-[#4a5041] flex-shrink-0">
-            {adminEmail.charAt(0).toUpperCase()}
+      <div className="mt-auto p-4">
+        <div className="flex items-center justify-center gap-2.5 p-2 rounded-[10px] cursor-pointer hover:bg-[#004d2c] transition">
+          <div className="w-[30px] h-[30px] rounded-full border-2 border-[#a8d5ba] flex items-center justify-center flex-shrink-0">
+            <User size={16} className="text-[#a8d5ba]" />
           </div>
-          <div className="text-xs text-[#636858] truncate">{adminEmail}</div>
+          <div className="text-xs text-[#a8d5ba] truncate">{adminEmail}</div>
         </div>
-        <button className="w-full mt-1.5 px-2 py-2 border border-[#e6eadc] rounded-[9px] bg-transparent text-xs text-[#636858] hover:bg-[#f4f6f0] hover:text-[#1a1f15] font-medium transition flex items-center justify-center gap-2">
-          <LogOut size={14} />
+        <button className="w-full mt-1.5 px-2 py-2 border border-[#004d2c] rounded-full text-[#003219] hover:bg-[#004d2c] hover:text-white transition flex items-center justify-center gap-2 uppercase" style={{ backgroundColor: '#55695F', fontFamily: 'Albert Sans', fontWeight: 900, fontSize: '15px', lineHeight: '100%', letterSpacing: '0%', verticalAlign: 'middle' }}>
           Sign out
         </button>
       </div>

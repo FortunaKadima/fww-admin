@@ -9,13 +9,12 @@ interface Props {
 
 export default function EngagementChart({ weeklyActive, monthlyActive }: Props) {
   const data = [
-    { name: "Week", active: weeklyActive },
-    { name: "Month", active: monthlyActive },
+    { name: "This Week", active: weeklyActive },
+    { name: "This Month", active: monthlyActive },
   ];
 
   return (
-    <div className="bg-white border border-[#e6eadc] rounded-[14px] p-5">
-      <h3 className="text-sm font-bold text-[#015d25] mb-4">Active Users</h3>
+    <div className="bg-white border border-[#e6eadc] rounded-none p-5">
       <ResponsiveContainer width="100%" height={250}>
         <BarChart data={data} margin={{ top: 20, right: 30, left: 0, bottom: 20 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="#e6eadc" />
@@ -25,7 +24,7 @@ export default function EngagementChart({ weeklyActive, monthlyActive }: Props) 
             contentStyle={{ backgroundColor: "#fbf9f6", border: "1px solid #e6eadc", borderRadius: "8px" }}
             formatter={(value) => `${value} athletes`}
           />
-          <Bar dataKey="active" fill="#007c33" radius={[8, 8, 0, 0]} />
+          <Bar dataKey="active" fill="#007c33" radius={[0, 0, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>
     </div>

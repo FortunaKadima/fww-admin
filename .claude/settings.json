@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s http://localhost:3002/dashboard)",
+      "Bash(open -a Safari \"http://localhost:3002/dashboard\")",
+      "Bash(screencapture -x /tmp/dashboard_current.png)",
+      "Bash(grep -c '^ *{$' /Users/fortunakadima/fww-admin-1/lib/queries.ts)",
+      "Bash(awk '/function getDummyAthletes/,/^\\\\s*\\\\];$/' /Users/fortunakadima/fww-admin-1/lib/queries.ts)"
+    ]
+  }
+}

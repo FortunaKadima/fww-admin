@@ -1,6 +1,5 @@
 import { getDashboardStats } from "@/lib/queries";
 import StatCard from "@/components/StatCard";
-import Topbar from "@/components/Topbar";
 import ActivationChart from "@/components/ActivationChart";
 import EngagementChart from "@/components/EngagementChart";
 import ModuleCompletionChart from "@/components/ModuleCompletionChart";
@@ -14,66 +13,81 @@ export default async function DashboardPage() {
 
   return (
     <>
-      <Topbar title="Dashboard" subtitle="Overview of your athletes' progress" />
-
       <div className="max-w-[1100px]">
+        {/* Dashboard Header */}
+        <div className="mt-16 mb-6">
+          <div className="flex justify-between items-end mb-4">
+            <h1 className="text-[35px] font-black text-[#003219]" style={{ lineHeight: '100%', letterSpacing: '-2px' }}>Your Dashboard</h1>
+            <p className="text-[15px] font-normal italic text-[#003219]" style={{ lineHeight: '130%', letterSpacing: '0' }}>Overview of your athletes' progress.</p>
+          </div>
+          {/* Divider */}
+          <div style={{ width: '100%', height: '0px', border: '0.5px solid #55695F', opacity: 1 }}></div>
+        </div>
+
         {/* Enrollment & Activation */}
-        <div className="text-[11px] font-bold uppercase tracking-[.07em] text-[#015d25] mb-2.5 mt-5.5">
+        <div className="text-[11px] font-bold uppercase tracking-[.07em] text-[#015d25] mb-2.5 mt-0">
           Enrollment & Activation
         </div>
-        <div className="grid grid-cols-4 gap-3 mb-1">
-          <StatCard label="Total Enrolled Athletes" value={stats.total_enrolled} />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mb-1">
+          <StatCard label="Athletes Enrolled" value={stats.total_enrolled} />
           <StatCard
             label="Activation Rate"
             value={`${stats.activation_rate}%`}
-            subtext="Signed up vs. invited"
           />
           <StatCard
-            label="Avg. Module Completion"
-            value={`${stats.avg_module_completion}%`}
-            subtext="Across all athletes"
+            label="Model Completed"
+            value={stats.total_completed_modules}
           />
-          <StatCard label="Total Completed Modules" value={stats.total_completed_modules} />
+          <StatCard label="Completion Rate" value={`${stats.avg_module_completion}%`} />
         </div>
 
         {/* Charts Row 1 */}
-        <div className="grid grid-cols-2 gap-4 mb-6 mt-6">
-          <ActivationChart
-            activated={Math.round((stats.activation_rate / 100) * stats.total_enrolled)}
-            pending={pendingAthletes}
-          />
-          <EngagementChart weeklyActive={stats.weekly_active_users} monthlyActive={stats.monthly_active_users} />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6 mt-6">
+          <div>
+            <div className="text-[11px] font-bold uppercase tracking-[.07em] text-[#015d25] mb-2.5">
+              Activation Status
+            </div>
+            <ActivationChart
+              activated={Math.round((stats.activation_rate / 100) * stats.total_enrolled)}
+              pending={pendingAthletes}
+            />
+          </div>
+          <div>
+            <div className="text-[11px] font-bold uppercase tracking-[.07em] text-[#015d25] mb-2.5">
+              Active Users
+            </div>
+            <EngagementChart weeklyActive={stats.weekly_active_users} monthlyActive={stats.monthly_active_users} />
+          </div>
         </div>
 
         {/* Engagement */}
         <div className="text-[11px] font-bold uppercase tracking-[.07em] text-[#015d25] mb-2.5 mt-5.5">
           Engagement
         </div>
-        <div className="grid grid-cols-4 gap-3 mb-1">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mb-1">
           <StatCard
             label="Weekly Active Users"
             value={stats.weekly_active_users}
-            subtext="Last 7 days"
           />
           <StatCard
             label="Monthly Active Users"
             value={stats.monthly_active_users}
-            subtext="Last 30 days"
           />
           <StatCard
-            label="Avg. Login Frequency"
-            value={`${stats.avg_login_frequency}×`}
-            subtext="Per athlete / 30 days"
+            label="Logins per Athlete"
+            value={stats.avg_login_frequency}
           />
           <StatCard
-            label="Total Time in App"
-            value={`${stats.total_time_hours}h`}
-            subtext="All athletes combined"
+            label="Total Hours in App"
+            value={stats.total_time_hours}
           />
         </div>
 
-        {/* Charts Row 2 */}
-        <div className="mb-6 mt-6">
+        {/* Learning Progress */}
+        <div className="text-[11px] font-bold uppercase tracking-[.07em] text-[#015d25] mb-2.5 mt-5.5">
+          Learning Progress
+        </div>
+        <div className="mb-6 mt-0">
           <ModuleCompletionChart
             avgCompletion={stats.avg_module_completion}
             totalCompleted={stats.total_completed_modules}
@@ -84,17 +98,15 @@ export default async function DashboardPage() {
         <div className="text-[11px] font-bold uppercase tracking-[.07em] text-[#015d25] mb-2.5 mt-5.5">
           Financial
         </div>
-        <div className="grid grid-cols-4 gap-3 mb-1">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mb-1">
           <StatCard
             label="Budgets Set"
             value={stats.budgets_set_count}
-            subtext={`of ${stats.total_enrolled} athletes`}
           />
           <Link href="/athletes" className="cursor-pointer">
             <StatCard
               label="Inactivity Alerts"
               value={stats.inactive_count}
-              subtext="No activity in 14+ days"
             />
           </Link>
         </div>

@@ -9,13 +9,12 @@ interface Props {
 
 export default function ModuleCompletionChart({ avgCompletion, totalCompleted }: Props) {
   const data = [
-    { name: "Avg Completion Rate", value: avgCompletion, fill: "#00b64f" },
-    { name: "Total Modules Completed", value: Math.min(totalCompleted / 10, 100), fill: "#008236" },
+    { name: "Completion Rate Average", value: avgCompletion, fill: "#007D32" },
+    { name: "Total Modules Completed", value: Math.min(totalCompleted / 10, 100), fill: "#007D32" },
   ];
 
   return (
-    <div className="bg-white border border-[#e6eadc] rounded-[14px] p-5">
-      <h3 className="text-sm font-bold text-[#015d25] mb-4">Learning Progress</h3>
+    <div className="bg-white border border-[#e6eadc] rounded-none p-5">
       <ResponsiveContainer width="100%" height={250}>
         <BarChart
           data={data}
@@ -29,7 +28,7 @@ export default function ModuleCompletionChart({ avgCompletion, totalCompleted }:
             contentStyle={{ backgroundColor: "#fbf9f6", border: "1px solid #e6eadc", borderRadius: "8px" }}
             formatter={(value) => `${Math.round(Number(value) || 0)}%`}
           />
-          <Bar dataKey="value" fill="#007c33" radius={[0, 8, 8, 0]} />
+          <Bar dataKey="value" fill="#007D32" radius={[0, 0, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>
     </div>

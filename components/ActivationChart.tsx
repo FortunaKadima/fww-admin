@@ -9,32 +9,43 @@ interface Props {
 
 export default function ActivationChart({ activated, pending }: Props) {
   const data = [
-    { name: "Activated", value: activated },
+    { name: "Active", value: activated },
     { name: "Pending", value: pending },
   ];
 
   return (
-    <div className="bg-white border border-[#e6eadc] rounded-[14px] p-5">
-      <h3 className="text-sm font-bold text-[#015d25] mb-4">Activation Status</h3>
+    <div className="bg-white border border-[#e6eadc] rounded-none p-5">
       <ResponsiveContainer width="100%" height={250}>
         <PieChart>
           <Pie
             data={data}
             cx="50%"
             cy="50%"
-            innerRadius={70}
-            outerRadius={100}
-            paddingAngle={2}
+            innerRadius={92.5}
+            outerRadius={112.5}
+            paddingAngle={0}
             dataKey="value"
+            startAngle={-65}
+            endAngle={295}
           >
-            <Cell fill="#00b64f" />
-            <Cell fill="#e6eadc" />
+            <Cell fill="#007D32" />
+            <Cell fill="#D9D9D9" />
           </Pie>
           <Tooltip
             formatter={(value) => `${value} athletes`}
             contentStyle={{ backgroundColor: "#fbf9f6", border: "1px solid #e6eadc", borderRadius: "8px" }}
           />
-          <Legend />
+          <Legend
+            layout="vertical"
+            verticalAlign="middle"
+            align="center"
+            wrapperStyle={{ color: '#003219' }}
+            formatter={(value) => (
+              <span style={{ color: '#003219', fontFamily: 'Albert Sans', fontWeight: 900, fontSize: '14px', lineHeight: '110%', letterSpacing: '-2%', verticalAlign: 'middle', fontStyle: 'normal' }}>
+                {value}
+              </span>
+            )}
+          />
         </PieChart>
       </ResponsiveContainer>
     </div>
