@@ -13,7 +13,7 @@ export default async function DashboardPage() {
 
   return (
     <>
-      <div className="max-w-[1100px]">
+      <div className="w-full pl-[25px] pr-8">
         {/* Dashboard Header */}
         <div className="mt-16 mb-6">
           <div className="flex justify-between items-end mb-4">
