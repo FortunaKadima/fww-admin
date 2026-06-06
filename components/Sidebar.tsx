@@ -3,7 +3,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { BarChart3, Users, Settings, User } from "lucide-react";
+import { BarChart3, Users, Settings, User, Menu, X } from "lucide-react";
+import { useState } from "react";
 
 const navItems = [
   { href: "/dashboard", label: "Dashboard", icon: BarChart3 },
@@ -13,9 +14,28 @@ const navItems = [
 
 export default function Sidebar({ adminEmail }: { adminEmail: string }) {
   const pathname = usePathname();
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <aside className="w-[250px] min-w-[250px] bg-[#003219] border-r border-[#003219] flex flex-col sticky top-0 h-screen overflow-hidden">
+    <>
+      {/* Mobile Hamburger */}
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="md:hidden fixed top-4 left-4 z-50 p-2 bg-[#003219] text-white rounded-lg"
+      >
+        {isOpen ? <X size={24} /> : <Menu size={24} />}
+      </button>
+
+      {/* Overlay for mobile */}
+      {isOpen && (
+        <div
+          className="md:hidden fixed inset-0 bg-black/50 z-40"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
+
+      {/* Sidebar */}
+      <aside className={`${isOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 transition-transform duration-300 fixed md:sticky w-[250px] min-w-[250px] bg-[#003219] border-r border-[#003219] flex flex-col top-0 h-screen overflow-hidden z-40`}>
       {/* Top */}
       <div className="p-5 pt-[20px]">
         <div className="mb-10 flex flex-col" style={{ width: '200px', height: '103px', opacity: 1, paddingTop: '10px' }}>
@@ -33,6 +53,7 @@ export default function Sidebar({ adminEmail }: { adminEmail: string }) {
                 <div key={href}>
                   <Link
                     href={href}
+                    onClick={() => setIsOpen(false)}
                     className={`flex items-center gap-2.5 px-3 py-2 rounded-[10px] font-medium transition ${
                       active
                         ? "text-[#7FFF9E] font-semibold"
@@ -72,5 +93,6 @@ export default function Sidebar({ adminEmail }: { adminEmail: string }) {
         </button>
       </div>
     </aside>
+    </>
   );
 }
